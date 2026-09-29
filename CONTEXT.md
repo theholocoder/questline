@@ -40,6 +40,10 @@ _Avoid_: Ticket, issue, task, card
 The Quest that holds a Session's task context, written during the Plan Stage and marked as a Spec by the default Workflow's tags; the Session's tickets are its child Quests. Every Session that leaves Plan has exactly one Spec and at least one ticket.
 _Avoid_: PRD, plan, epic
 
+**Ticket**:
+A child Quest of a Session's Spec: one slice of the feature, cut during Plan and worked in its own Run during Implement. A Ticket can be taken once every Quest blocking it is closed.
+_Avoid_: Task, issue, card
+
 **Agent Memory**:
 Persistent notes the agent keeps about a Project across Sessions, which the user can view and edit.
 _Avoid_: Context, knowledge base
