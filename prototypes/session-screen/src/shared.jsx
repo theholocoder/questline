@@ -53,9 +53,8 @@ export function stageState(s, i) {
 }
 export const shownStage = (s) => stages[Math.min(s.viewIdx ?? s.stageIdx, 2)];
 
-// ---------- Tiny icon set (RPG-ish glyphs, stand-ins for a real icon set) ----------
-const glyphs = { plan: '✎', implement: '⚒', review: '⚖', quest: '❖', main: '✦', grimoire: '📖', lock: '🔒', check: '✓', sword: '⚔', shield: '⛨', scroll: '📜', flag: '⚑', gear: '⚙' };
-export const Icon = ({ n, style }) => <span aria-hidden style={{ display: 'inline-block', width: '1.2em', textAlign: 'center', ...style }}>{glyphs[n] ?? '•'}</span>;
+export { Icon } from './icons.jsx';
+import { Icon } from './icons.jsx';
 
 // ---------- Widgets ----------
 export function Gauge({ used, window: w, label = true }) {
@@ -276,7 +275,7 @@ export function QuestCard({ q, onClick }) {
   const parent = q.parent && quests.find((p) => p.id === q.parent);
   return (
     <div className={`panel quest-card ${q.status}`} onClick={onClick}>
-      <div className="row"><span className="qid grow">{q.id}</span>{q.blockedBy && <span className="chip warn">⛓ blocked</span>}{q.status === 'closed' && <span className="chip">closed</span>}</div>
+      <div className="row"><span className="qid grow">{q.id}</span>{q.blockedBy && <span className="chip warn"><Icon n="blocked" /> blocked</span>}{q.status === 'closed' && <span className="chip">closed</span>}</div>
       <div style={{ fontWeight: 500 }}>{q.tags.includes('spec') && <Icon n="main" style={{ color: 'var(--accent)' }} />}{q.title}</div>
       {parent && <div className="muted" style={{ fontSize: 11.5 }}>↳ {parent.title}</div>}
       <div className="row" style={{ flexWrap: 'wrap', gap: 4 }}>{q.tags.map((t) => <Tag key={t} t={t} />)}</div>
@@ -344,7 +343,7 @@ export function Overlays() {
       {s.celebrate && (
         <div className="backdrop" onClick={dismissCelebrate}>
           <div className="parchment dialog banner-celebrate" style={{ boxShadow: 'var(--panel-shadow)' }}>
-            <div style={{ fontSize: 36 }}>{s.complete ? '🏆' : '✦'}</div>
+            <div style={{ fontSize: 40, color: 'var(--accent)' }}><Icon n={s.complete ? 'trophy' : 'main'} size="1em" /></div>
             <h2 className="display" style={{ margin: 0 }}>{s.complete ? 'Quest fulfilled' : 'Level gained'}</h2>
             <div style={{ fontStyle: 'italic' }}>{s.celebrate}</div>
             <button className="btn primary" style={{ alignSelf: 'center' }}>Onward</button>
@@ -359,7 +358,7 @@ export function EmptyProject() {
   return (
     <div style={{ display: 'grid', placeItems: 'center', height: '100%' }}>
       <div className="parchment" style={{ padding: 32, textAlign: 'center', maxWidth: 420 }}>
-        <div style={{ fontSize: 40 }}>🗺</div>
+        <div style={{ fontSize: 44, color: 'var(--accent)' }}><Icon n="map" size="1em" /></div>
         <h2 className="display">The map is blank</h2>
         <p style={{ fontStyle: 'italic' }}>No Sessions yet in <b>questline</b>. Every adventure starts with a single question.</p>
         <button className="btn primary">New Session</button>

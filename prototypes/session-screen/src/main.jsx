@@ -1,17 +1,18 @@
-// PROTOTYPE, throwaway (ticket #13): three structurally different Session screen layouts,
-// switchable via ?variant=A|B|C, plus a 2 genres x 2 modes theme switch and fake scenarios.
+// PROTOTYPE, throwaway (ticket #13), round 2. Layout is fixed (Workbench v2); the bar now cycles
+// four "paper" style derivatives via ?style=, plus light/dark and fake scenarios.
+// Round 1 layouts B (Journey path) and C (Campaign table) live in commit 95bb107.
 import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './styles.css';
 import { SessionProvider, scenarios } from './shared.jsx';
+import { IconSetCtx } from './icons.jsx';
 import { VariantA } from './variants/A.jsx';
-import { VariantB } from './variants/B.jsx';
-import { VariantC } from './variants/C.jsx';
 
-const variants = [
-  { key: 'A', name: 'Workbench', C: VariantA },
-  { key: 'B', name: 'Journey path', C: VariantB },
-  { key: 'C', name: 'Campaign table', C: VariantC },
+const styles = [
+  { key: 'scriptorium', name: 'Scriptorium', icons: 'phosphor-duotone', blurb: 'Cormorant · Inter · sepia · Phosphor duotone' },
+  { key: 'cartographer', name: 'Cartographer', icons: 'game', blurb: 'IM Fell · Source Sans · verdigris + rust · game-icons' },
+  { key: 'ledger', name: 'Ledger', icons: 'lucide', blurb: 'Fraunces · IBM Plex · wax-seal red · Lucide' },
+  { key: 'illuminated', name: 'Illuminated', icons: 'phosphor-fill', blurb: 'Alegreya SC · ultramarine + gold · Phosphor fill' },
 ];
 
 const osMode = () => (window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
@@ -28,23 +29,21 @@ function useParam(name, fallback) {
 }
 
 function App() {
-  const [variant, setVariant] = useParam('variant', 'A');
-  const [genre, setGenre] = useParam('genre', 'paper');
+  const [style, setStyle] = useParam('style', 'scriptorium');
   const [mode, setMode] = useParam('mode', osMode());
   const [scenario, setScenario] = useParam('scenario', 'implement');
-  const idx = Math.max(0, variants.findIndex((v) => v.key === variant));
-  const V = variants[idx];
+  const idx = Math.max(0, styles.findIndex((v) => v.key === style));
+  const S = styles[idx];
 
   useEffect(() => {
-    document.documentElement.dataset.genre = genre;
+    document.documentElement.dataset.style = S.key;
     document.documentElement.dataset.mode = mode;
-  }, [genre, mode]);
+  }, [S.key, mode]);
 
-  const cycle = (d) => setVariant(variants[(idx + d + variants.length) % variants.length].key);
+  const cycle = (d) => setStyle(styles[(idx + d + styles.length) % styles.length].key);
   useEffect(() => {
     const onKey = (e) => {
-      const t = e.target;
-      if (t.closest?.('input, textarea, select, [contenteditable]')) return;
+      if (e.target.closest?.('input, textarea, select, [contenteditable]')) return;
       if (e.key === 'ArrowLeft') cycle(-1);
       if (e.key === 'ArrowRight') cycle(1);
     };
@@ -53,18 +52,15 @@ function App() {
   });
 
   return (
-    <>
+    <IconSetCtx.Provider value={S.icons}>
       <SessionProvider key={scenario} scenario={scenario}>
-        <V.C />
+        <VariantA />
       </SessionProvider>
       {import.meta.env.DEV && (
         <div className="proto-bar">
           <button onClick={() => cycle(-1)}>←</button>
-          <span className="lbl">{V.key} ({V.name})</span>
+          <span className="lbl" title={S.blurb}>{idx + 1}/{styles.length} {S.name}<br /><span style={{ fontWeight: 400, fontSize: 10, opacity: .7 }}>{S.blurb}</span></span>
           <button onClick={() => cycle(1)}>→</button>
-          <span className="div" />
-          <button className={genre === 'paper' ? 'on' : ''} onClick={() => setGenre('paper')}>Paper</button>
-          <button className={genre === 'fantasy' ? 'on' : ''} onClick={() => setGenre('fantasy')}>Dark fantasy</button>
           <span className="div" />
           <button className={mode === 'light' ? 'on' : ''} onClick={() => setMode('light')}>Light</button>
           <button className={mode === 'dark' ? 'on' : ''} onClick={() => setMode('dark')}>Dark</button>
@@ -74,7 +70,7 @@ function App() {
           </select>
         </div>
       )}
-    </>
+    </IconSetCtx.Provider>
   );
 }
 
