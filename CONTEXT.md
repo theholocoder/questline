@@ -70,6 +70,15 @@ _Avoid_: Chat, conversation, thread
 A named model configuration (provider, model, parameters) that the user defines in the app. Each Stage is assigned one, and a child Run may name a different one; one Model Profile is the default.
 _Avoid_: Model, preset
 
+**Executor**:
+Where a Run's shell commands execute: directly on the host, or inside a sandbox. Contributed by a Plugin; each Project uses one.
+_Avoid_: Runtime, container, backend
+
+**Approval Profile**:
+What a Stage's Runs may read, write, run and reach without asking the user. Declared by the Workflow Plugin per Stage; a child Run inherits its parent's.
+_Avoid_: Permissions, policy, mode
+_UI label_: Permissions
+
 **Skill**:
 A packaged set of agent instructions for one workflow step (for example `/grill-with-docs`), bundled by a Plugin and overridable by another Plugin. Each Stage makes a chosen set of Skills available; a Skill outside that set cannot be used in the Stage.
 _Avoid_: Command, prompt
