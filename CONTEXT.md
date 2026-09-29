@@ -61,5 +61,5 @@ A named model configuration (provider, model, parameters) that the user defines 
 _Avoid_: Model, preset
 
 **Skill**:
-A packaged set of agent instructions for one workflow step (for example `/grill-with-docs`), bundled by a Plugin and overridable by another Plugin.
+A packaged set of agent instructions for one workflow step (for example `/grill-with-docs`), bundled by a Plugin and overridable by another Plugin. Each Stage makes a chosen set of Skills available; a Skill outside that set cannot be used in the Stage.
 _Avoid_: Command, prompt
