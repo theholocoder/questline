@@ -4,6 +4,8 @@ A desktop AI harness for developers who follow Matt Pocock's skills workflow. It
 
 ## Language
 
+Terms below are the domain language, used in code, prompts, and docs. A term's _UI label_, when it has one, is the themed name shown on screen only; never use a UI label outside the UI.
+
 **Project**:
 One code folder on disk that Questline manages. Listed in the sidebar.
 _Avoid_: Repo, workspace
@@ -15,6 +17,7 @@ _Avoid_: Conversation, thread, chat
 **Stage**:
 One step of the Workflow a Session goes through, for example Plan, Implement, or Review.
 _Avoid_: Phase, status
+_UI label_: Level, on the XP Bar only
 
 **Workflow**:
 An ordered set of Stages and the gates between them, contributed by a Plugin. Each Session follows one Workflow, picked when the Session is created and fixed from then on; a default one is preselected, and the user can pick another (for example a hotfix or retro Workflow a colleague added).
@@ -39,14 +42,17 @@ _Avoid_: Ticket, issue, task, card
 **Spec**:
 The Quest that holds a Session's task context, written during the Plan Stage and marked as a Spec by the default Workflow's tags; the Session's tickets are its child Quests. Every Session that leaves Plan has exactly one Spec and at least one ticket.
 _Avoid_: PRD, plan, epic
+_UI label_: Main Quest
 
 **Ticket**:
 A child Quest of a Session's Spec: one slice of the feature, cut during Plan and worked in its own Run during Implement. A Ticket can be taken once every Quest blocking it is closed.
 _Avoid_: Task, issue, card
+_UI label_: Objective
 
 **Agent Memory**:
 Persistent notes the agent keeps about a Project across Sessions, which the user can view and edit.
 _Avoid_: Context, knowledge base
+_UI label_: Grimoire
 
 **Plugin**:
 A package that extends or replaces any part of Questline: Stages, prompts, skills, tools, Engines, or UI regions. Core behavior ships as built-in Plugins too.
