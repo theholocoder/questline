@@ -1,0 +1,132 @@
+{
+  "pi": "0.99.0",
+  "node": "v25.2.1",
+  "results": [
+    {
+      "id": "1a custom system prompt",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "1b harness Skill listed",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "1c user-invoked Skill hidden from model",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "1d repo Skills not loaded",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "1e user Skills not loaded",
+      "ok": true,
+      "note": "user skills on disk: diagnose-crash, omarchy, angular-developer, ask-matt, code-review, codebase-design, diagnose-crash, diagnosing-bugs, domain-modeling, grill-me, grill-with-docs, grilling, handoff, implement, improve-codebase-architecture, obsidian-vault, omarchy, prototype, research, resolving-merge-conflicts, setup-matt-pocock-skills, tdd, teach, to-questionnaire, to-spec, to-tickets, triage, wait-what, wayfinder, wizard, writing-for-agents"
+    },
+    {
+      "id": "1f AGENTS.md not loaded",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "1g only harness tools active",
+      "ok": true,
+      "note": "bash,read,write,edit,ask"
+    },
+    {
+      "id": "1h /skill:<user-invoked> works as slash command",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "1i hidden Skill reachable from another Skill (read)",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "2a ask blocks the Run until host answers",
+      "ok": true,
+      "note": "501ms"
+    },
+    {
+      "id": "2b answer reaches the model",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "3a bash routed through host executor",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "3b read/write/edit routed through host executor",
+      "ok": true,
+      "note": "bash,read,write,edit"
+    },
+    {
+      "id": "3c edit applied",
+      "ok": true,
+      "note": ""
+    },
+    {
+      "id": "3d jail blocks escape",
+      "ok": true,
+      "note": "[{\"type\":\"text\",\"text\":\"Questline jail: /tmp/pi-spike-dVvgCl is outside the worktree\"}]"
+    },
+    {
+      "id": "4a getContextUsage reports tokens + window",
+      "ok": true,
+      "note": "{\"tokens\":1398,\"contextWindow\":6000,\"percent\":23.3}"
+    },
+    {
+      "id": "4b auto-compaction fires near the window",
+      "ok": true,
+      "note": "compaction events: compaction_start,compaction_end; usage={\"tokens\":15260,\"contextWindow\":6000,\"percent\":254.33333333333334}"
+    },
+    {
+      "id": "4c manual compact() works",
+      "ok": true,
+      "note": "summary: ## Goal\nSUMMARY_OF_EARLIER_WORK\n\n---\n\n**"
+    },
+    {
+      "id": "4d usage after compaction",
+      "ok": true,
+      "note": "{\"tokens\":null,\"contextWindow\":6000,\"percent\":null}"
+    },
+    {
+      "id": "5a streamed event types",
+      "ok": true,
+      "note": "agent_start,turn_start,message_start,message_end,message_update,turn_end,agent_end,agent_settled,tool_execution_start,tool_execution_end,tool_execution_update,compaction_start,compaction_end"
+    },
+    {
+      "id": "5b abort() stops a streaming Run",
+      "ok": true,
+      "note": "stopReason=aborted"
+    },
+    {
+      "id": "5c steer() queues into the running Run",
+      "ok": true,
+      "note": "steer returned queued"
+    }
+  ],
+  "eventTypes": [
+    "agent_start",
+    "turn_start",
+    "message_start",
+    "message_end",
+    "message_update",
+    "turn_end",
+    "agent_end",
+    "agent_settled",
+    "tool_execution_start",
+    "tool_execution_end",
+    "tool_execution_update",
+    "compaction_start",
+    "compaction_end",
+    "queue_update"
+  ]
+}
