@@ -63,7 +63,7 @@ The pluggable agent backend that runs the model and its tool loop for a Session.
 _Avoid_: Provider, runtime, backend
 
 **Run**:
-One Engine context inside a Session: the unit that gets compacted or cleared and whose context usage is gauged. A Stage has one or more Runs; a subagent is a child Run of the Run that spawned it.
+One Engine context inside a Session: the unit that gets compacted and whose context usage is gauged. A Stage has one or more Runs; a subagent is a child Run of the Run that spawned it. Clearing a Run ends it and starts a fresh Run in the same Stage; the ended Run stays readable.
 _Avoid_: Chat, conversation, thread
 
 **Model Profile**:
