@@ -3,7 +3,7 @@
 :root { --font-mono: 'JetBrains Mono', ui-monospace, monospace; --display-case: none; }
 
 /* ---------- 1. Scriptorium: warm ivory, Cormorant, sepia ink, Phosphor duotone ---------- */
-[data-style='scriptorium'] {
+[data-style='scriptorium'], [data-style='gilded'] {
   --font-display: 'Cormorant Garamond', Georgia, serif; --display-weight: 700; --display-tracking: .01em;
   --font-ui: 'Inter', system-ui, sans-serif; --radius: 8px;
 }
@@ -80,7 +80,7 @@
   --font-display: 'Alegreya SC', Georgia, serif; --display-weight: 700; --display-tracking: .02em;
   --font-ui: 'Alegreya Sans', system-ui, sans-serif; --radius: 5px;
 }
-[data-style='illuminated'][data-mode='light'] {
+[data-style='illuminated'][data-mode='light'], [data-style='gilded'][data-mode='light'] {
   --bg: #f4efe2; --surface: #fbf8ef; --surface-2: #f6f1e4; --border: #e0d6bd;
   --parchment: #efe3c4; --parchment-edge: #b8892b; --parchment-ink: #2b2410;
   --text: #221d12; --muted: #74694f; --accent: #27408b; --accent-soft: #dde3f4; --accent-ink: #fbf8ef;
@@ -89,7 +89,7 @@
   --code-bg: #faf6ec; --diff-add: #e2edd7; --diff-del: #f4ddd6; --panel-shadow: 0 1px 2px rgba(60,45,10,.08);
   --texture: radial-gradient(ellipse at 50% -20%, rgba(184,137,43,.10), transparent 60%);
 }
-[data-style='illuminated'][data-mode='dark'] {
+[data-style='illuminated'][data-mode='dark'], [data-style='gilded'][data-mode='dark'] {
   --bg: #11131d; --surface: #181b28; --surface-2: #1e2231; --border: #2d3246;
   --parchment: #1f2233; --parchment-edge: #c79d45; --parchment-ink: #eadfbe;
   --text: #e6e2d6; --muted: #9a98a6; --accent: #8ea2ff; --accent-soft: #232a4a; --accent-ink: #0d1020;

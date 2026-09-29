@@ -1,5 +1,5 @@
-// PROTOTYPE, throwaway (ticket #13), round 2. Layout is fixed (Workbench v2); the bar now cycles
-// four "paper" style derivatives via ?style=, plus light/dark and fake scenarios.
+// PROTOTYPE, throwaway (ticket #13), round 3. Layout is fixed (Workbench v2); the bar now cycles
+// the final two paper styles via ?style= (round 3), plus light/dark and fake scenarios.
 // Round 1 layouts B (Journey path) and C (Campaign table) live in commit 95bb107.
 import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -10,10 +10,13 @@ import { VariantA } from './variants/A.jsx';
 
 const styles = [
   { key: 'scriptorium', name: 'Scriptorium', icons: 'phosphor-duotone', blurb: 'Cormorant · Inter · sepia · Phosphor duotone' },
-  { key: 'cartographer', name: 'Cartographer', icons: 'game', blurb: 'IM Fell · Source Sans · verdigris + rust · game-icons' },
-  { key: 'ledger', name: 'Ledger', icons: 'lucide', blurb: 'Fraunces · IBM Plex · wax-seal red · Lucide' },
-  { key: 'illuminated', name: 'Illuminated', icons: 'phosphor-fill', blurb: 'Alegreya SC · ultramarine + gold · Phosphor fill' },
+  { key: 'gilded', name: 'Scriptorium Gilded', icons: 'phosphor-duotone', blurb: 'Scriptorium fonts + Illuminated palette (ultramarine + gold)' },
+  // round 2 losers, still reachable via ?style=
+  { key: 'cartographer', name: 'Cartographer', icons: 'game', blurb: 'IM Fell · Source Sans · verdigris + rust · game-icons', hidden: true },
+  { key: 'ledger', name: 'Ledger', icons: 'lucide', blurb: 'Fraunces · IBM Plex · wax-seal red · Lucide', hidden: true },
+  { key: 'illuminated', name: 'Illuminated', icons: 'phosphor-fill', blurb: 'Alegreya SC · ultramarine + gold · Phosphor fill', hidden: true },
 ];
+const shown = styles.filter((x) => !x.hidden);
 
 const osMode = () => (window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
 
@@ -40,7 +43,8 @@ function App() {
     document.documentElement.dataset.mode = mode;
   }, [S.key, mode]);
 
-  const cycle = (d) => setStyle(styles[(idx + d + styles.length) % styles.length].key);
+  const si = Math.max(0, shown.findIndex((v) => v.key === S.key));
+  const cycle = (d) => setStyle(shown[(si + d + shown.length) % shown.length].key);
   useEffect(() => {
     const onKey = (e) => {
       if (e.target.closest?.('input, textarea, select, [contenteditable]')) return;
@@ -59,7 +63,7 @@ function App() {
       {import.meta.env.DEV && (
         <div className="proto-bar">
           <button onClick={() => cycle(-1)}>←</button>
-          <span className="lbl" title={S.blurb}>{idx + 1}/{styles.length} {S.name}<br /><span style={{ fontWeight: 400, fontSize: 10, opacity: .7 }}>{S.blurb}</span></span>
+          <span className="lbl" title={S.blurb}>{S.hidden ? '·' : `${si + 1}/${shown.length}`} {S.name}<br /><span style={{ fontWeight: 400, fontSize: 10, opacity: .7 }}>{S.blurb}</span></span>
           <button onClick={() => cycle(1)}>→</button>
           <span className="div" />
           <button className={mode === 'light' ? 'on' : ''} onClick={() => setMode('light')}>Light</button>
