@@ -49,6 +49,10 @@ A child Quest of a Session's Spec: one slice of the feature, cut during Plan and
 _Avoid_: Task, issue, card
 _UI label_: Objective
 
+**Finding**:
+One problem raised about a Session's changes during Review, by the agent or the user, optionally pinned to a place in the diff. The user accepts it, which turns it into a new Ticket, or dismisses it. A Finding is not a Quest until it is accepted.
+_Avoid_: Comment, issue, remark
+
 **Agent Memory**:
 Persistent notes the agent keeps about a Project across Sessions, which the user can view and edit.
 _Avoid_: Context, knowledge base
