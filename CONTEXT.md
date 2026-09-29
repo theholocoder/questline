@@ -29,11 +29,15 @@ The per-Session display of Stages, where each completed Stage is a level gained.
 _Avoid_: Stepper, progress bar
 
 **Quest Log**:
-The harness-internal board of agent-facing work items, such as `/to-tickets` output and macro plan items. It is separate from the Project's user-facing issue tracker (GitHub or GitLab), which Questline does not replace.
+The harness-internal board of Quests, one per Project and filterable by Session, that the agent uses to orchestrate work and the user uses to follow it. It knows nothing about any Workflow: a Workflow gives Quests meaning through tags. It is separate from the Project's user-facing issue tracker (GitHub or GitLab), which Questline does not replace.
 _Avoid_: Kanban, board, backlog
 
+**Quest**:
+One item in the Quest Log: a unit of work the agent orchestrates and the user follows. It is either open or closed, and its tags place it in a column. A Quest can have child Quests and can be blocked by other Quests in the same Project.
+_Avoid_: Ticket, issue, task, card
+
 **Spec**:
-The Session's top-level Quest Log item, written during the Plan Stage; the Session's tickets are its children. Every Session that leaves Plan has exactly one Spec and at least one ticket.
+The Quest that holds a Session's task context, written during the Plan Stage and marked as a Spec by the default Workflow's tags; the Session's tickets are its child Quests. Every Session that leaves Plan has exactly one Spec and at least one ticket.
 _Avoid_: PRD, plan, epic
 
 **Agent Memory**:
