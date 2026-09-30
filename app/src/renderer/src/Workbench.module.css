@@ -1,0 +1,78 @@
+.workbench {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  grid-template-rows: 56px 1fr;
+  grid-template-areas:
+    'sidebar header'
+    'sidebar workspace';
+  height: 100vh;
+}
+
+.sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px 12px;
+  background: var(--surface-2);
+  border-right: 1px solid var(--border);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--display-color);
+}
+
+.projects {
+  flex: 1;
+}
+
+.sectionTitle {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.bottomNav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navButton {
+  padding: 6px 8px;
+  border: none;
+  border-radius: var(--radius);
+  background: none;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.navButton:hover {
+  background: var(--accent-soft);
+}
+
+.header {
+  grid-area: header;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.workspace {
+  grid-area: workspace;
+  display: grid;
+  place-items: center;
+  overflow: auto;
+}
+
+.empty {
+  margin: 0;
+  color: var(--muted);
+}

@@ -1,0 +1,8 @@
+{
+  "id": "core",
+  "name": "Core",
+  "version": "0.1.0",
+  "apiVersion": "0.1",
+  "description": "Default panels, Tracker UI and core tools",
+  "switchable": false
+}

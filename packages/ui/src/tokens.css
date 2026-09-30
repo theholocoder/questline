@@ -1,0 +1,31 @@
+/* "Scriptorium Gilded" theme tokens. */
+:root {
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --radius: 8px;
+
+  --bg: #f6f1e7;
+  --surface: #fffdf8;
+  --surface-2: #f9f4ea;
+  --border: #e6dcc8;
+  --text: #2a241b;
+  --muted: #7a6f5e;
+  --accent: #8b5a1f;
+  --accent-soft: #f1e2c4;
+  --display-color: #3d2f17;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b1813;
+    --surface: #231f19;
+    --surface-2: #2a251d;
+    --border: #3a3226;
+    --text: #ece4d4;
+    --muted: #a39680;
+    --accent: #d9a95a;
+    --accent-soft: #3a2f1c;
+    --display-color: #efdcb2;
+  }
+}
