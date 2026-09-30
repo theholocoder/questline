@@ -1,0 +1,7 @@
+{
+  "id": "pocock",
+  "name": "Pocock Workflow",
+  "version": "0.1.0",
+  "apiVersion": "0.1",
+  "description": "Plan → Implement → Review Workflow and its Skills"
+}

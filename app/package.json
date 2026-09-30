@@ -1,0 +1,33 @@
+{
+  "name": "@questline/app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Questline desktop app",
+  "type": "module",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "typecheck": "tsc --noEmit -p tsconfig.node.json && tsc --noEmit -p tsconfig.web.json",
+    "e2e": "playwright test"
+  },
+  "dependencies": {
+    "@questline/plugin-api": "workspace:*",
+    "@questline/plugin-core": "workspace:*",
+    "@questline/plugin-engine-pi": "workspace:*",
+    "@questline/plugin-pocock": "workspace:*",
+    "@questline/ui": "workspace:*",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^5.2.0",
+    "electron": "^44.5.1",
+    "electron-vite": "^5.0.0",
+    "vitest": "^5.0.3"
+  }
+}

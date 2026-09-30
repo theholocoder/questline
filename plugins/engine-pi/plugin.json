@@ -1,0 +1,7 @@
+{
+  "id": "engine-pi",
+  "name": "pi Engine",
+  "version": "0.1.0",
+  "apiVersion": "0.1",
+  "description": "Engine backed by the pi coding agent"
+}

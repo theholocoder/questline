@@ -1,0 +1,24 @@
+{
+  "name": "questline-plugin-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Starting point for a Questline Plugin",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build"
+  },
+  "peerDependencies": {
+    "@questline/plugin-api": "0.1.x",
+    "@questline/ui": "0.1.x",
+    "react": "^19.2.0"
+  },
+  "devDependencies": {
+    "@questline/plugin-api": "workspace:*",
+    "@questline/ui": "workspace:*",
+    "@types/react": "^19.3.0",
+    "react": "^19.3.0",
+    "typescript": "~6.0.3",
+    "vite": "^7.3.0"
+  }
+}

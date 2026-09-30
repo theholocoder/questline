@@ -1,0 +1,12 @@
+{
+  "name": "@questline/plugin-api",
+  "version": "0.1.0",
+  "description": "Public API for Questline Plugins",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  }
+}
