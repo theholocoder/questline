@@ -13,3 +13,8 @@ v1 keeps everything in one local SQLite file (`<userData>/questline.db`, `node:s
 - Switching a store's backend starts it empty. There is no copy and no sync.
 - Postgres-portable schema only: text ids (UUIDv7; Quests use UUIDv4, shown as `Q-<7 hex>` and resolved by a unique prefix of at least 4 chars within the Project), epoch-ms integers, JSON stored as text, and no SQLite-only features.
 - Plugins get no tables, only rows in the core Plugin KV table.
+
+## Amendments
+
+- The Harness tool catalogue renamed Quest to **Issue** and Quest Log to **Tracker**, so the stores are **Local**, **Tracker** and **Agent Memory** (`stores.tracker(projectId)`), and Issues display as `I-<7 hex>`. Memory Entries use the same scheme, shown as `M-<7 hex>`.
+- Settings and credentials decided that Questline stores no secrets, so the Local store has no secrets table.

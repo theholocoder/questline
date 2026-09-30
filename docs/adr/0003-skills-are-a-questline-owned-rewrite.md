@@ -13,3 +13,7 @@ The built-in Workflow Plugin ships its own rewrite of Pocock's Skills instead of
 - Upstream improvements are not pulled in; porting one is a manual rewrite.
 - Skill ids are namespaced by the built-in Workflow Plugin, not by Matt Pocock's name, so the adapted Skills are never presented as the official plugin.
 - The Engine must not auto-load user-level or repo-level Skills; only the Skills the harness passes for the current Stage reach a Run.
+
+## Amendments
+
+- The Harness tool catalogue renamed the Quest Log to the **Tracker** (Quest Log is now its UI label only), and replaced `complete_stage` / `complete_ticket` with **`finish`**. The rewritten Skills name the Tracker tools (`create_issue`, `update_issue`, …), `ask`, `finish` and `spawn_agent`.
