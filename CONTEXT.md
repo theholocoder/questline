@@ -14,6 +14,18 @@ _Avoid_: Repo, workspace
 One unit of work inside a Project, usually a single feature or fix, carried through the workflow stages.
 _Avoid_: Conversation, thread, chat
 
+**Complete**:
+The successful end of a Session, confirmed by the user from Review: its changes become one commit on the Session branch, and the Session is archived.
+_Avoid_: Finish, done, merge
+
+**Abandon**:
+Ending a Session from any Stage without Completing it: its open Quests are closed as abandoned, and the Session is archived.
+_Avoid_: Cancel, discard, close
+
+**Archived Session**:
+A Session that has been Completed or Abandoned: read-only, with no worktree left, its branch kept. Only an Archived Session can be deleted; deleting it removes its Runs, Findings and Quests for good, but never its Agent Memory or usage stats.
+_Avoid_: Closed session, finished session, history
+
 **Stage**:
 One step of the Workflow a Session goes through, for example Plan, Implement, or Review.
 _Avoid_: Phase, status
