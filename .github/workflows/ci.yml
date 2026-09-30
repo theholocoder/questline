@@ -27,6 +27,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       # Electron fetches its binary on first use; do it up front so the e2e timeout covers only the test.
       - run: pnpm --filter @questline/app exec install-electron
+      - run: pnpm format:check
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test

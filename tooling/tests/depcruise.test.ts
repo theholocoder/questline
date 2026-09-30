@@ -28,8 +28,8 @@ describe('package boundaries', () => {
 
   it('reports each boundary break and allows the registry', () => {
     const result = JSON.parse(cruiseFixture('json').stdout) as CruiseResult;
-    const violations = result.summary.violations.map(({ rule, from, to }) =>
-      `${rule.name}: ${from} -> ${to.replace(/^.*\/node_modules\//, '')}`,
+    const violations = result.summary.violations.map(
+      ({ rule, from, to }) => `${rule.name}: ${from} -> ${to.replace(/^.*\/node_modules\//, '')}`,
     );
 
     expect(violations.sort()).toEqual(

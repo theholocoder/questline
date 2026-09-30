@@ -9,7 +9,8 @@ Requires Node 24 (`.node-version`) and pnpm 10.
 ```sh
 pnpm install
 pnpm dev        # open the app
-pnpm lint       # eslint + dependency-cruiser package boundaries
+pnpm lint       # eslint (type-aware) + dependency-cruiser package boundaries
+pnpm format     # prettier; CI runs format:check
 pnpm typecheck
 pnpm test       # vitest
 pnpm build

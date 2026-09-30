@@ -49,7 +49,7 @@ module.exports = {
     },
     {
       name: 'undeclared-dependency',
-      comment: "A module may only import npm packages declared in its own package.json.",
+      comment: 'A module may only import npm packages declared in its own package.json.',
       severity: 'error',
       from: {},
       to: { dependencyTypes: ['npm-no-pkg', 'npm-unknown'] },
