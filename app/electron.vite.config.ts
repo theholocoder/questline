@@ -16,5 +16,7 @@ export default defineConfig({
   },
   renderer: {
     plugins: [react()],
+    // Inlined data: URLs would be blocked by the page's CSP; local files cost nothing in a desktop app.
+    build: { assetsInlineLimit: 0 },
   },
 });

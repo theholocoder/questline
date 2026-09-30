@@ -1,8 +1,12 @@
-/* "Scriptorium Gilded" theme tokens. */
+/* "Scriptorium Gilded" theme tokens. Fonts are bundled so the app never depends on what is installed. */
+@import '@fontsource-variable/cormorant-garamond';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
 :root {
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-ui: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Cormorant Garamond Variable', Georgia, serif;
+  --font-ui: 'Inter Variable', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
   --radius: 8px;
 
   --bg: #f6f1e7;
