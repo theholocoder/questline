@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { builtInPlugins } from './registry';
+import { builtInPlugins } from '../../src/plugins/registry';
 
 describe('built-in Plugin registry', () => {
   it('lists the core, engine-pi and pocock Plugins', () => {

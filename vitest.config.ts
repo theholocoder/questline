@@ -4,8 +4,8 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   plugins: [react()],
   test: {
-    include: ['**/*.test.{ts,tsx}'],
-    exclude: ['**/node_modules/**', '**/out/**', '**/dist/**'],
+    include: ['**/tests/**/*.test.{ts,tsx}'],
+    exclude: ['**/node_modules/**', '**/out/**', '**/dist/**', '**/tests/fixtures/**'],
     css: { modules: { classNameStrategy: 'non-scoped' } },
   },
 });

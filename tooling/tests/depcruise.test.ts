@@ -2,8 +2,8 @@ import { spawnSync } from 'node:child_process';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
-const root = join(import.meta.dirname, '..');
-const fixture = join(import.meta.dirname, 'depcruise-fixture');
+const root = join(import.meta.dirname, '..', '..');
+const fixture = join(import.meta.dirname, 'fixtures', 'depcruise');
 const config = join(root, '.dependency-cruiser.cjs');
 const bin = join(root, 'node_modules', 'dependency-cruiser', 'bin', 'dependency-cruiser.mjs');
 

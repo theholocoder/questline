@@ -3,5 +3,6 @@
   "compilerOptions": {
     "types": ["node"]
   },
-  "include": ["vitest.config.ts", "tooling/*.ts"]
+  "include": ["vitest.config.ts", "tooling/**/*.ts"],
+  "exclude": ["tooling/tests/fixtures"]
 }

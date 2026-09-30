@@ -22,3 +22,5 @@ pnpm e2e        # Playwright smoke test against the built app (run `pnpm build` 
 - `packages/plugin-api`, `packages/ui`: the public Plugin API and shared UI kit.
 - `plugins/core`, `plugins/engine-pi`, `plugins/pocock`: built-in Plugins, using only the public packages.
 - `templates/plugin`: the Plugin template, built in CI so API breaks fail the build.
+
+Unit tests live in each package's `tests/` folder, mirroring `src/`; the app's Playwright tests live in `app/e2e/`.

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import { cleanup, render, screen, within } from '@testing-library/react';
 import { afterEach, describe, expect, it } from 'vitest';
-import { Workbench } from './Workbench';
+import { Workbench } from '../../src/renderer/src/Workbench';
 
 afterEach(cleanup);
 
