@@ -54,8 +54,8 @@ One problem raised about a Session's changes during Review, by the agent or the 
 _Avoid_: Comment, issue, remark
 
 **Agent Memory**:
-Persistent notes the agent keeps about a Project across Sessions, which the user can view and edit.
-_Avoid_: Context, knowledge base
+The general principles the agent keeps about a Project across Sessions, as titled entries: how to work in this Project, not facts about any one task. Every Run sees the titles and reads an entry's content on demand. The agent adds entries as it works, and the user manages them in the Grimoire.
+_Avoid_: Context, knowledge base, notes
 _UI label_: Grimoire
 
 **Plugin**:
