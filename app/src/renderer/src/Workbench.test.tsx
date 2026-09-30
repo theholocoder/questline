@@ -17,11 +17,11 @@ describe('Workbench', () => {
     expect(within(nav).getByRole('button', { name: 'Settings' })).toBeDefined();
   });
 
-  it('shows an empty Session header and workspace', () => {
+  it('shows an empty Session header and Session pane', () => {
     render(<Workbench />);
 
     expect(screen.getByRole('banner')).toBeDefined();
-    const workspace = screen.getByRole('main');
-    expect(within(workspace).getByText('No Session selected')).toBeDefined();
+    const sessionPane = screen.getByRole('main');
+    expect(within(sessionPane).getByText('No Session selected')).toBeDefined();
   });
 });

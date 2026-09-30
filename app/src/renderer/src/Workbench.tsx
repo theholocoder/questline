@@ -20,7 +20,7 @@ export function Workbench() {
         </nav>
       </aside>
       <header className={styles.header} />
-      <main className={styles.workspace}>
+      <main className={styles.sessionPane}>
         <p className={styles.empty}>No Session selected</p>
       </main>
     </div>

@@ -25,6 +25,8 @@ jobs:
           node-version-file: .node-version
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      # Electron fetches its binary on first use; do it up front so the e2e timeout covers only the test.
+      - run: pnpm --filter @questline/app exec install-electron
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test

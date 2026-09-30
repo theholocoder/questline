@@ -65,7 +65,7 @@ module.exports = {
     doNotFollow: { path: 'node_modules' },
     exclude: { path: '^(app|packages/[^/]+|plugins/[^/]+|templates/[^/]+)/(out|dist)/' },
     tsPreCompilationDeps: true,
-    combinedDependencies: true,
+    combinedDependencies: false,
     enhancedResolveOptions: {
       exportsFields: ['exports'],
       conditionNames: ['import', 'require', 'node', 'default', 'types'],

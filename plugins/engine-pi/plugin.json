@@ -3,5 +3,5 @@
   "name": "pi Engine",
   "version": "0.1.0",
   "apiVersion": "0.1",
-  "description": "Runs Stages on the pi coding agent"
+  "description": "Engine backed by the pi coding agent"
 }

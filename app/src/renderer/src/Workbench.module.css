@@ -4,7 +4,7 @@
   grid-template-rows: 56px 1fr;
   grid-template-areas:
     'sidebar header'
-    'sidebar workspace';
+    'sidebar session';
   height: 100vh;
 }
 
@@ -65,8 +65,8 @@
   border-bottom: 1px solid var(--border);
 }
 
-.workspace {
-  grid-area: workspace;
+.sessionPane {
+  grid-area: session;
   display: grid;
   place-items: center;
   overflow: auto;
