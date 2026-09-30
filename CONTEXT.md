@@ -58,6 +58,10 @@ The general principles the agent keeps about a Project across Sessions, as title
 _Avoid_: Context, knowledge base, notes
 _UI label_: Grimoire
 
+**Memory Entry**:
+One item of Agent Memory: a short title and its content, stating one principle. It belongs to the Project, not to the Session it was written in. Entries the agent writes may wait for the user's review before any Run can see them.
+_Avoid_: Note, fact, memory
+
 **Plugin**:
 A package that extends or replaces any part of Questline: Stages, prompts, skills, tools, Engines, or UI regions. Core behavior ships as built-in Plugins too.
 _Avoid_: Extension, addon, module
