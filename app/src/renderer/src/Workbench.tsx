@@ -1,27 +1,36 @@
+import { Button, Icon, strings, type IconName } from '@questline/ui';
 import styles from './Workbench.module.css';
 
-const bottomNav = ['Quest Log', 'Grimoire', 'Settings'];
+const bottomNav: { icon: IconName; label: string }[] = [
+  { icon: 'tracker', label: strings.labels.tracker },
+  { icon: 'agentMemory', label: strings.labels.agentMemory },
+  { icon: 'settings', label: strings.workbench.settings },
+];
 
 export function Workbench() {
   return (
     <div className={styles.workbench}>
-      <aside className={styles.sidebar} aria-label="Sidebar">
-        <div className={styles.brand}>Questline</div>
+      <aside className={styles.sidebar} aria-label={strings.workbench.sidebar}>
+        <div className={styles.brand}>
+          <Icon name="logo" />
+          {strings.appName}
+        </div>
         <section className={styles.projects}>
-          <h2 className={styles.sectionTitle}>Projects</h2>
-          <p className={styles.empty}>No Projects yet</p>
+          <h2 className={styles.sectionTitle}>{strings.workbench.projects}</h2>
+          <p className={styles.empty}>{strings.workbench.noProjects}</p>
         </section>
         <nav className={styles.bottomNav}>
-          {bottomNav.map((label) => (
-            <button key={label} type="button" className={styles.navButton}>
+          {bottomNav.map(({ icon, label }) => (
+            <Button key={icon} variant="ghost" className={styles.navButton}>
+              <Icon name={icon} />
               {label}
-            </button>
+            </Button>
           ))}
         </nav>
       </aside>
       <header className={styles.header} />
       <main className={styles.sessionPane}>
-        <p className={styles.empty}>No Session selected</p>
+        <p className={styles.empty}>{strings.workbench.noSession}</p>
       </main>
     </div>
   );

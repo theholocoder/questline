@@ -1,11 +1,12 @@
 import { join } from 'node:path';
+import { strings } from '@questline/ui/strings';
 import { app, BrowserWindow } from 'electron';
 
 function createWindow(): void {
   const window = new BrowserWindow({
     width: 1280,
     height: 800,
-    title: 'Questline',
+    title: strings.appName,
     webPreferences: {
       sandbox: true,
       contextIsolation: true,

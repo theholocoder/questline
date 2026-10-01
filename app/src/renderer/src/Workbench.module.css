@@ -19,9 +19,13 @@
 }
 
 .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-display);
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
   color: var(--display-color);
 }
 
@@ -45,18 +49,16 @@
 }
 
 .navButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   padding: 6px 8px;
-  border: none;
-  border-radius: var(--radius);
-  background: none;
-  color: var(--text);
-  font: inherit;
+  font-size: inherit;
   text-align: left;
-  cursor: pointer;
 }
 
 .navButton:hover {
-  background: var(--accent-soft);
+  background-color: var(--accent-soft);
 }
 
 .header {
