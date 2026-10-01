@@ -1,5 +1,6 @@
 import '@questline/ui/tokens.css';
 import './global.css';
+import './theme';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Workbench } from './Workbench';

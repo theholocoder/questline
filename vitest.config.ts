@@ -6,6 +6,7 @@ export default defineConfig({
   test: {
     include: ['**/tests/**/*.test.{ts,tsx}'],
     exclude: ['**/node_modules/**', '**/out/**', '**/dist/**', '**/tests/fixtures/**'],
-    css: { modules: { classNameStrategy: 'non-scoped' } },
+    // Stylesheets are injected so component tests can check which theme tokens a component resolves.
+    css: { include: [/.+/], modules: { classNameStrategy: 'non-scoped' } },
   },
 });

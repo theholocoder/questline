@@ -1,0 +1,45 @@
+.button {
+  padding: 5px 11px;
+  border: 1px solid;
+  border-color: var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surface-2);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.primary {
+  border-color: var(--accent);
+  background-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
+}
+
+.danger {
+  color: var(--danger);
+}
+
+.ghost {
+  border-color: transparent;
+  background-color: transparent;
+}
+
+.ghost:hover:not(:disabled) {
+  border-color: var(--border);
+}
+
+.sm {
+  padding: 2px 8px;
+  font-size: 12px;
+}

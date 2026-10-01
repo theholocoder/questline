@@ -10,4 +10,12 @@ body {
   color: var(--text);
   font-family: var(--font-ui);
   font-size: 14px;
+  line-height: 1.5;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
 }

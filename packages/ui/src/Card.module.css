@@ -1,0 +1,16 @@
+.card {
+  border: 1px solid;
+  border-color: var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surface);
+  box-shadow: var(--panel-shadow);
+}
+
+/* Parchment is reserved for the Main Quest and celebratory banners; code, diff and chat stay neutral. */
+.parchment {
+  border: 1px solid;
+  border-color: var(--parchment-edge);
+  border-radius: var(--radius);
+  background-color: var(--parchment);
+  color: var(--parchment-ink);
+}

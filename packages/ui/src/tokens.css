@@ -1,4 +1,8 @@
-/* "Scriptorium Gilded" theme tokens. Fonts are bundled so the app never depends on what is installed. */
+/*
+ * "Scriptorium Gilded" theme tokens. Fonts are bundled so the app never depends on what is installed.
+ * Palettes are keyed on `data-theme`, set by the theme controller; dark is the fallback when it is unset.
+ * No animation: never add transitions or keyframes to the theme.
+ */
 @import '@fontsource-variable/cormorant-garamond';
 @import '@fontsource-variable/inter';
 @import '@fontsource-variable/jetbrains-mono';
@@ -7,29 +11,66 @@
   --font-display: 'Cormorant Garamond Variable', Georgia, serif;
   --font-ui: 'Inter Variable', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, monospace;
+  --display-weight: 700;
+  --display-tracking: 0.01em;
   --radius: 8px;
-
-  --bg: #f6f1e7;
-  --surface: #fffdf8;
-  --surface-2: #f9f4ea;
-  --border: #e6dcc8;
-  --text: #2a241b;
-  --muted: #7a6f5e;
-  --accent: #8b5a1f;
-  --accent-soft: #f1e2c4;
-  --display-color: #3d2f17;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #1b1813;
-    --surface: #231f19;
-    --surface-2: #2a251d;
-    --border: #3a3226;
-    --text: #ece4d4;
-    --muted: #a39680;
-    --accent: #d9a95a;
-    --accent-soft: #3a2f1c;
-    --display-color: #efdcb2;
-  }
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #11131d;
+  --surface: #181b28;
+  --surface-2: #1e2231;
+  --border: #2d3246;
+  --parchment: #1f2233;
+  --parchment-edge: #c79d45;
+  --parchment-ink: #eadfbe;
+  --text: #e6e2d6;
+  --muted: #9a98a6;
+  --accent: #8ea2ff;
+  --accent-soft: #232a4a;
+  --accent-ink: #0d1020;
+  --xp-fill: #c79d45;
+  --xp-track: #262a3b;
+  --display-color: #e0b85a;
+  --ok: #7fbf7a;
+  --ok-soft: #1c2a1f;
+  --warn: #e0a044;
+  --warn-soft: #33291a;
+  --danger: #e07a6a;
+  --danger-soft: #3a2025;
+  --code-bg: #141724;
+  --diff-add: #1b2b22;
+  --diff-del: #3a2025;
+  --panel-shadow: none;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f4efe2;
+  --surface: #fbf8ef;
+  --surface-2: #f6f1e4;
+  --border: #e0d6bd;
+  --parchment: #efe3c4;
+  --parchment-edge: #b8892b;
+  --parchment-ink: #2b2410;
+  --text: #221d12;
+  --muted: #74694f;
+  --accent: #27408b;
+  --accent-soft: #dde3f4;
+  --accent-ink: #fbf8ef;
+  --xp-fill: #b8892b;
+  --xp-track: #e6dcc2;
+  --display-color: #27408b;
+  --ok: #3f7a3a;
+  --ok-soft: #e1ecd8;
+  --warn: #9a6410;
+  --warn-soft: #f3e3bf;
+  --danger: #9b2c22;
+  --danger-soft: #f3dad3;
+  --code-bg: #faf6ec;
+  --diff-add: #e2edd7;
+  --diff-del: #f4ddd6;
+  --panel-shadow: 0 1px 2px rgba(60, 45, 10, 0.08);
 }
