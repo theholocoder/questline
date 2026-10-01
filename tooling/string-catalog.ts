@@ -2,8 +2,6 @@
  * Keeps domain terms and UI labels apart (CONTEXT.md): UI labels live only in the string catalog,
  * and the catalog never shows a domain term that has a UI label.
  */
-import { readdirSync, statSync } from 'node:fs';
-import { join, relative } from 'node:path';
 import ts from 'typescript';
 
 export interface GlossaryTerm {
@@ -50,7 +48,7 @@ export function catalogEntries(catalog: object, prefix = ''): [string, string][]
 export function findDomainTermsShown(entries: [string, string][], glossary: GlossaryTerm[]): string[] {
   const hidden = glossary.filter(({ label, restricted }) => label && !restricted);
   return entries.flatMap(([path, text]) => {
-    const shown = hidden.find(({ term }) => new RegExp(`\\b${term}(s|es)?\\b`).test(text));
+    const shown = hidden.find(({ term }) => new RegExp(`\\b${term}(s|es)?\\b`, 'i').test(text));
     return shown ? [`${path}: "${text}" shows the domain term "${shown.term}"`] : [];
   });
 }
@@ -66,10 +64,18 @@ function labelIn(text: string, labels: string[], ignoreCase: boolean): string | 
     .find((label) => new RegExp(`\\b${label}s?\\b`, ignoreCase ? 'i' : '').test(text));
 }
 
-/** UI labels written in a source file: in strings, JSX text or identifiers, never in comments. */
+/** UI labels written in a source file: anywhere in a stylesheet or Markdown; in strings, JSX text, identifiers or comments of code. */
 export function findLabelLeaks(file: string, source: string, labels: string[]): string[] {
-  const sourceFile = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
-  const leaks: string[] = [];
+  if (!/\.tsx?$/.test(file)) {
+    return source.split('\n').flatMap((line, i) => {
+      const label = labelIn(line, labels, false);
+      return label ? [`${file}:${i + 1} "${line.trim()}" uses the UI label "${label}"`] : [];
+    });
+  }
+
+  const sourceFile = parse(file, source);
+  const found: { pos: number; text: string; label: string }[] = [];
+  const comments = new Map<number, string>();
 
   const visit = (node: ts.Node) => {
     let text: string | undefined;
@@ -81,32 +87,60 @@ export function findLabelLeaks(file: string, source: string, labels: string[]): 
       text = node.text;
       label = labelIn(identifierWords(text), labels, true);
     }
-    if (text && label) {
-      const line = sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile)).line + 1;
-      leaks.push(`${file}:${line} "${text}" uses the UI label "${label}"`);
+    if (text && label) found.push({ pos: node.getStart(sourceFile), text, label });
+
+    for (const range of ts.getLeadingCommentRanges(source, node.getFullStart()) ?? []) {
+      comments.set(range.pos, source.slice(range.pos, range.end));
     }
     ts.forEachChild(node, visit);
   };
   visit(sourceFile);
-  return leaks;
+  visit(sourceFile.endOfFileToken);
+
+  for (const [pos, comment] of comments) {
+    const label = labelIn(comment, labels, false);
+    if (label) found.push({ pos, text: comment, label });
+  }
+  return found
+    .sort((a, b) => a.pos - b.pos)
+    .map(({ pos, text, label }) => `${file}:${lineOf(sourceFile, pos)} "${text}" uses the UI label "${label}"`);
 }
 
-const sourceRoots = ['app/src', 'packages', 'plugins', 'templates'];
-const skippedDirs = new Set(['node_modules', 'out', 'dist', 'tests', 'e2e']);
+const onScreenAttributes = new Set(['aria-label', 'title', 'placeholder', 'alt']);
 
-/** Source files, relative to the repo root, that may not hold UI labels: all but the catalog and tests. */
-export function sourceFiles(root: string): string[] {
-  const files: string[] = [];
-  const walk = (dir: string) => {
-    for (const entry of readdirSync(dir)) {
-      const path = join(dir, entry);
-      if (statSync(path).isDirectory()) {
-        if (!skippedDirs.has(entry)) walk(path);
-      } else if (/\.tsx?$/.test(entry) && !entry.endsWith('.d.ts')) {
-        files.push(relative(root, path));
-      }
+/** On-screen text written straight into JSX rather than read from the string catalog. */
+export function findHardCodedText(file: string, source: string): string[] {
+  const sourceFile = parse(file, source);
+  const found: string[] = [];
+
+  const visit = (node: ts.Node) => {
+    let text: string | undefined;
+    if (ts.isJsxText(node)) {
+      text = node.text.trim();
+    } else if (
+      ts.isJsxAttribute(node) &&
+      onScreenAttributes.has(node.name.getText(sourceFile)) &&
+      node.initializer &&
+      ts.isStringLiteral(node.initializer)
+    ) {
+      text = node.initializer.text;
     }
+    if (text && /\p{L}/u.test(text)) {
+      found.push(
+        `${file}:${lineOf(sourceFile, node.getStart(sourceFile))} "${text}" is on-screen text outside the catalog`,
+      );
+    }
+    ts.forEachChild(node, visit);
   };
-  sourceRoots.forEach((dir) => walk(join(root, dir)));
-  return files.filter((file) => file !== catalogFile).sort();
+  visit(sourceFile);
+  return found;
+}
+
+function parse(file: string, source: string): ts.SourceFile {
+  const kind = file.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
+  return ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, kind);
+}
+
+function lineOf(sourceFile: ts.SourceFile, pos: number): number {
+  return sourceFile.getLineAndCharacterOfPosition(pos).line + 1;
 }

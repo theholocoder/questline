@@ -2,12 +2,14 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { strings } from '../../packages/ui/src/strings';
+import { sourceFiles } from '../source-files';
 import {
   catalogEntries,
+  catalogFile,
   findDomainTermsShown,
+  findHardCodedText,
   findLabelLeaks,
   parseGlossary,
-  sourceFiles,
   termKey,
 } from '../string-catalog';
 
@@ -59,23 +61,28 @@ describe('findDomainTermsShown', () => {
         [
           ['a', 'Close Tickets'],
           ['b', 'Stage details'],
-          ['c', 'ticketing is fine in lower case'],
+          ['c', 'ticketing is a different word'],
+          ['d', '2 open tickets'],
         ],
         terms,
       ),
-    ).toEqual(['a: "Close Tickets" shows the domain term "Ticket"']);
+    ).toEqual([
+      'a: "Close Tickets" shows the domain term "Ticket"',
+      'd: "2 open tickets" shows the domain term "Ticket"',
+    ]);
   });
 });
 
 describe('findLabelLeaks', () => {
   const labels = ['Quest', 'Quest Log', 'Grimoire'];
 
-  it('flags UI labels in strings, JSX text and identifiers', () => {
+  it('flags UI labels in strings, JSX text, identifiers and comments', () => {
     const source = [
       "const title = 'Open the Grimoire';",
       'const tab = `Quest Log`;',
       'function useQuestLog() {}',
       'const view = <p>One Quest</p>;',
+      '// Reads the Grimoire.',
     ].join('\n');
 
     expect(findLabelLeaks('x.tsx', source, labels)).toEqual([
@@ -83,15 +90,38 @@ describe('findLabelLeaks', () => {
       'x.tsx:2 "Quest Log" uses the UI label "Quest Log"',
       'x.tsx:3 "useQuestLog" uses the UI label "Quest Log"',
       'x.tsx:4 "One Quest" uses the UI label "Quest"',
+      'x.tsx:5 "// Reads the Grimoire." uses the UI label "Grimoire"',
     ]);
   });
 
-  it('ignores comments and words that only contain a label', () => {
-    const source = ['// The Quest Log reads the Tracker.', "const name = 'Questline';", 'const questline = 1;'].join(
-      '\n',
-    );
+  it('flags UI labels in stylesheets and Markdown, line by line', () => {
+    const source = ['.card {', '  /* Reserved for the Main Quest */', '}'].join('\n');
+
+    expect(findLabelLeaks('x.css', source, ['Main Quest'])).toEqual([
+      'x.css:2 "/* Reserved for the Main Quest */" uses the UI label "Main Quest"',
+    ]);
+  });
+
+  it('ignores words that only contain a label', () => {
+    const source = ["const name = 'Questline';", 'const questline = 1;', '// Questline reads the Tracker.'].join('\n');
 
     expect(findLabelLeaks('x.ts', source, labels)).toEqual([]);
+  });
+});
+
+describe('findHardCodedText', () => {
+  it('flags text written into JSX instead of read from the catalog', () => {
+    const source = [
+      'const a = <p>No Projects yet</p>;',
+      'const b = <aside aria-label="Sidebar" />;',
+      'const c = <p title={strings.appName}>{strings.appName}</p>;',
+      'const d = <div className="x"> {count} · </div>;',
+    ].join('\n');
+
+    expect(findHardCodedText('x.tsx', source)).toEqual([
+      'x.tsx:1 "No Projects yet" is on-screen text outside the catalog',
+      'x.tsx:2 "Sidebar" is on-screen text outside the catalog',
+    ]);
   });
 });
 
@@ -108,10 +138,19 @@ describe('the string catalog', () => {
 
   it('is the only source of UI labels', () => {
     const labels = glossary.flatMap(({ label }) => (label ? [label] : []));
-    const leaks = sourceFiles(root).flatMap((file) =>
-      findLabelLeaks(file, readFileSync(join(root, file), 'utf8'), labels),
-    );
+    const leaks = sourceFiles(root, /\.(tsx?|css|md)$/)
+      .filter((file) => file !== catalogFile)
+      .flatMap((file) => findLabelLeaks(file, readFileSync(join(root, file), 'utf8'), labels));
 
     expect(leaks).toEqual([]);
+  });
+
+  it('is the only source of on-screen text', () => {
+    // The Plugin template scaffolds third-party Plugins, which bring their own strings.
+    const hardCoded = sourceFiles(root, /\.tsx$/)
+      .filter((file) => !file.startsWith('templates/'))
+      .flatMap((file) => findHardCodedText(file, readFileSync(join(root, file), 'utf8')));
+
+    expect(hardCoded).toEqual([]);
   });
 });

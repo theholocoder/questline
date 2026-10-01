@@ -1,13 +1,6 @@
 import {
-  ArrowCounterClockwise,
   BookOpenText,
-  Check,
-  Flag,
-  Flask,
   GearSix,
-  Info,
-  Link,
-  Lock,
   MapTrifold,
   Scroll,
   ShieldCheck,
@@ -15,11 +8,10 @@ import {
   StarFour,
   Sword,
   Target,
-  Trophy,
   type Icon as PhosphorIcon,
 } from '@phosphor-icons/react';
 
-/** Glyphs are named for what they stand for, in domain terms; the theme draws them as Phosphor duotone. */
+/** Glyphs keyed by the domain term they stand for (plus the logo and Settings), drawn as Phosphor duotone. */
 const glyphs = {
   logo: Sword,
   settings: GearSix,
@@ -30,14 +22,6 @@ const glyphs = {
   agentMemory: BookOpenText,
   approvalProfile: ShieldCheck,
   run: Stack,
-  info: Info,
-  lock: Lock,
-  check: Check,
-  blocked: Link,
-  flag: Flag,
-  trophy: Trophy,
-  rewind: ArrowCounterClockwise,
-  flask: Flask,
 } satisfies Record<string, PhosphorIcon>;
 
 export type IconName = keyof typeof glyphs;
